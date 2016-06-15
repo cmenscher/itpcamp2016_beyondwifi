@@ -1,16 +1,3 @@
-// rf69_server.pde
-// -*- mode: C++ -*-
-// Example sketch showing how to create a simple messageing server
-// with the RH_RF69 class. RH_RF69 class does not provide for addressing or
-// reliability, so you should only use RH_RF69  if you do not need the higher
-// level messaging abilities.
-// It is designed to work with the other example rf69_client
-// Demonstrates the use of AES encryption, setting the frequency and modem
-// configuration.
-// Tested on Moteino with RFM69 http://lowpowerlab.com/moteino/
-// Tested on miniWireless with RFM69 www.anarduino.com/miniwireless
-// Tested on Teensy 3.1 with RF69 on PJRC breakout board
-
 #include <SPI.h>
 #include <RH_RF69.h>
 
@@ -87,8 +74,7 @@ void loop()
     // Should be a message for us now   
     uint8_t buf[RH_RF69_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
-    if (rf69.recv(buf, &len))
-    {
+    if (rf69.recv(buf, &len)) {
       Serial.print("Message received: ");
       Serial.println((char*)buf);
       Serial.print("RSSI: ");
@@ -98,17 +84,7 @@ void loop()
       for(int i=0; i<2; i++) {
         Blink(LED, 250);       
       }
-
-      //delay(250);
-      // Send a reply
-      uint8_t data[] = "And hello back to you";
-      rf69.send(data, sizeof(data));
-      rf69.waitPacketSent();
-      Serial.println("Sent a reply\n");
-//      Blink(LED, 1000);
-    }
-    else
-    {
+    } else {
       Serial.println("recv failed");
     }
   }
